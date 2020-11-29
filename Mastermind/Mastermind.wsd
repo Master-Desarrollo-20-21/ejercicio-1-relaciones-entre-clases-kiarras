@@ -5,45 +5,51 @@ class Mastermind{
 }
 Mastermind *--> Game
 class Game{
-    + Attempts : Attempt[]
+    ~ MAX_ATTEMPS : int
+    - WINS
+    - Result : int[][]
+    + proposedCombinations : ProposedCombination[]
     + play()
     - showPreviousAttempts()
     - finalResult() :String
 }
-Game *--> "0..10" Attempt
 Game *--> SecretCombination
-
-class Attempt{
-    - Result : int[]
-    + getProposedCombination()
-    + getAttempt() : String
-}
-Attempt *--> ProposedCombination
-Attempt --> SecretCombination
+Game *--> "0..10" ProposedCombination
 
 abstract class Combination{
+    ~ MAX_COLORS : int
     + Code : String
     + CharCode : Char[]
     {abstract} + show()
 }
 Combination *--> "4" Color
 enum Color{
-    RED     ("r")
-    YELLOW  ("y")
-    BLUE    ("b")
-    GREEN   ("g")
-    PURPLE  ("p")
-    ORANGE  ("o")
+    RED     "r"
+    YELLOW  "y"
+    BLUE    "b"
+    GREEN   "g"
+    PURPLE  "p"
+    ORANGE  "o"
+    + valueOf(char) : Color
+    + valueOf(int) : char
+    + getKeyword() : int
 }
 Combination <|-- SecretCombination
 Combination <|-- ProposedCombination
 Class SecretCombination{
-    + setRamdomCombination()
+    - setRamdomCombination()
+    - isContain(int, char[])
     + isEquals(ProposedCombination)
 }
 Class ProposedCombination{
-    - isValid() : String
-    - isColorOK() : boolean
+    ~ PROPOSE
+    ~ WRONG_LENGTH
+    ~ WRONG_COLORS
+    - getValidCombination() : String
+    - inProposedCombination(String) : String
+    - isColorOK(String) : boolean
+    + getProposedCombination()
+    + getAttempt() : String
 }
 
 package IO{
@@ -52,7 +58,6 @@ package IO{
         + out()
     }
 }
-Attempt ...> Console
 Game ...> Console
 Mastermind ...> Console
 ProposedCombination ...> Console
