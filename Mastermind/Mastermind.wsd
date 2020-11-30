@@ -58,7 +58,14 @@ package IO{
         + out()
     }
 }
-Game ...> Console
-Mastermind ...> Console
-ProposedCombination ...> Console
+MastermindView ...> Console
+Game ...> MastermindView
+Mastermind ...> MastermindView
+ProposedCombination ...> MastermindView
+Class MastermindView{
+    + showTitle()
+    + showPreviousAttempts()
+    + getProposedCombination()
+    + 
+}
 @enduml

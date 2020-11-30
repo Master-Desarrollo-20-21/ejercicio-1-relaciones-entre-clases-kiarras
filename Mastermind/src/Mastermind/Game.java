@@ -1,4 +1,3 @@
-package Mastermind;
 
 public class Game {
 
@@ -7,6 +6,7 @@ public class Game {
     private ProposedCombination[] proposedCombinations;
     private SecretCombination secretCombination;
     public int[][] results;
+    private MastermindView mastermindView;
 
     public Game() {
         proposedCombinations = new ProposedCombination[MAX_ATTEMPS];
@@ -14,36 +14,41 @@ public class Game {
         secretCombination = new SecretCombination();
     }
 
-	public void play() {
-        Console console = new Console();
-        console.out("----- MASTERMIND ----- \n");
+    public Game(MastermindView mastermindView) {
+        this.mastermindView = mastermindView;
+    }
+
+    public void play() {
+        this.mastermindView.showTitle();
         int i = 0;
         do {
-            console.out(i + " attempt(s): \n xxxx \n");
-            showPreviousAttempts(i);
+            this.mastermindView.showAttempsNumber(i);
+            this.mastermindView.showPreviousAttempts(showPreviousAttempts(i));
             proposedCombinations[i] = new ProposedCombination();
             results[i] = secretCombination.isEqual(proposedCombinations[i].getProposedCombination().show());
             i++;
-            if(results[i-1][0] == WINS){
+            if (results[i - 1][0] == WINS) {
                 break;
             }
         } while (i < proposedCombinations.length);
-        console.out(finalResult(i-1));
+        this.mastermindView.finalResult(finalResult(i - 1));
     }
-    
-    private void showPreviousAttempts(int previous) {
-        Console console = new Console();
+
+    private String[] showPreviousAttempts(int previous) {
+        String[] attempts = new String[previous];
         for (int j = 0; j < previous; j++) {
-            console.out(getAttempt(j));
+            attempts[j]=getAttempt(j);
         }
+        return attempts;
     }
 
-	public String getAttempt(int j) {
-		return proposedCombinations[j].show() + " --> "+ results[j][0] + " blacks and " + results[j][1] + " whites \n";
-	}
+    public String getAttempt(int j) {
+        return proposedCombinations[j].show() + " --> " + results[j][0] + " blacks and " + results[j][1] + " whites";
+    }
 
-    private String finalResult(int i) {
-        if(results[i][0] == 4) return "You've won!!! ;-) \n";
-        return "You've lost!!! :-( \n";
+    private boolean finalResult(int i) {
+        if (results[i][0] == 4)
+            return true;
+        return false;
     }
 }

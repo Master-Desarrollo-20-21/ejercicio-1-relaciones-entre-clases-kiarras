@@ -1,4 +1,4 @@
-package Mastermind;
+
 
 public abstract class Combination {
     protected final int MAX_COLORS = 4;

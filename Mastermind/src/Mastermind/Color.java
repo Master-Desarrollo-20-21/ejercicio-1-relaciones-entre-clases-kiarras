@@ -1,4 +1,4 @@
-package Mastermind;
+
 
 public enum Color {
     RED     ('r'),

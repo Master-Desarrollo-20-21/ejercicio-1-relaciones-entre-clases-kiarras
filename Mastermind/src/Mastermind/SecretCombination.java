@@ -1,4 +1,4 @@
-package Mastermind;
+
 
 import java.util.Random;
 

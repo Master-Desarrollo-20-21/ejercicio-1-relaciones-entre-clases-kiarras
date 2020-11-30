@@ -1,9 +1,13 @@
-package Mastermind;
+
 
 public class Mastermind {
+
+    private MastermindView mastermindView;
     private Game game;
+
     public Mastermind(){
-        this.game = new Game();
+        this.mastermindView = new MastermindView();
+        this.game = new Game(this.mastermindView);
     }
 
     public void start() {
@@ -13,9 +17,7 @@ public class Mastermind {
     }
     
     private boolean isResumed() {
-        Console console = new Console();
-        console.out("Resume? (y/n):");
-        if(console.inChar() == 'y'){
+        if(mastermindView.isResumed()){
             this.game = new Game();
             return true;
         }

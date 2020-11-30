@@ -1,31 +1,25 @@
-package Mastermind;
+
 
 public class ProposedCombination extends Combination{
 
-    final String PROPOSE = "Propose a combination: ";
-    final String WRONG_LENGTH = "Wrong proposed combination length \n";
-    final String WRONG_COLORS = "Wrong colors, they must be: rbygop \n";
-    public ProposedCombination() {
+    private MastermindView mastermindView;
+
+    public ProposedCombination(MastermindView mastermindView) {
+        this.mastermindView = mastermindView;
         code = getValidCombination();
     }
 
     private String getValidCombination() {
-        String value = inProposedCombination("");
+        String value = this.mastermindView.inProposedCombination("");
         while (value.length() != 4) {
-            value = inProposedCombination(WRONG_LENGTH);
+            value = this.mastermindView.inWrongLength();
         } 
         while (!isColorsOK(value)) {
-            value = inProposedCombination(WRONG_COLORS);
+            value = this.mastermindView.inWrongColors();
         }
         return value;
     }
 
-    private String inProposedCombination(String alert) {
-        Console console = new Console();
-        console.out(alert);
-        console.out(PROPOSE);
-        return console.inString();
-    }
 
     private boolean isColorsOK(String value) {
         for (char c : value.toCharArray()) {
