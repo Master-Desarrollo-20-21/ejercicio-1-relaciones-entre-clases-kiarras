@@ -24,7 +24,7 @@ public class Game {
         do {
             this.mastermindView.showAttempsNumber(i);
             this.mastermindView.showPreviousAttempts(showPreviousAttempts(i));
-            proposedCombinations[i] = new ProposedCombination();
+            proposedCombinations[i] = new ProposedCombination(mastermindView);
             results[i] = secretCombination.isEqual(proposedCombinations[i].getProposedCombination().show());
             i++;
             if (results[i - 1][0] == WINS) {
