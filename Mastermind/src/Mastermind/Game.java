@@ -1,40 +1,38 @@
+import views.GameView;
 
 public class Game {
 
-    final int MAX_ATTEMPS = 10;
-    final int WINS = 4;
+    public static final int MAX_ATTEMPS = 10;
+    public static final int WINS = 4;
     private ProposedCombination[] proposedCombinations;
     private SecretCombination secretCombination;
     public int[][] results;
-    private MastermindView mastermindView;
+    private GameView view;
 
     public Game() {
+        this.view = new GameView();
         proposedCombinations = new ProposedCombination[MAX_ATTEMPS];
         results = new int[MAX_ATTEMPS][];
         secretCombination = new SecretCombination();
     }
 
-    public Game(MastermindView mastermindView) {
-        this.mastermindView = mastermindView;
-    }
-
     public void play() {
-        this.mastermindView.showTitle();
+        this.view.showTitle();
         int i = 0;
         do {
-            this.mastermindView.showAttempsNumber(i);
-            this.mastermindView.showPreviousAttempts(showPreviousAttempts(i));
-            proposedCombinations[i] = new ProposedCombination(mastermindView);
-            results[i] = secretCombination.isEqual(proposedCombinations[i].getProposedCombination().show());
+            this.view.showAttempsNumber(i);
+            this.view.showPreviousAttempts(previousAttempts(i));
+            proposedCombinations[i] = new ProposedCombination();
+            results[i] = secretCombination.isEqual(proposedCombinations[i].getProposedCombination().getCombination());
             i++;
             if (results[i - 1][0] == WINS) {
                 break;
             }
         } while (i < proposedCombinations.length);
-        this.mastermindView.finalResult(finalResult(i - 1));
+        this.view.finalResult(finalResult(i - 1));
     }
 
-    private String[] showPreviousAttempts(int previous) {
+    private String[] previousAttempts(int previous) {
         String[] attempts = new String[previous];
         for (int j = 0; j < previous; j++) {
             attempts[j]=getAttempt(j);
@@ -43,7 +41,7 @@ public class Game {
     }
 
     public String getAttempt(int j) {
-        return proposedCombinations[j].show() + " --> " + results[j][0] + " blacks and " + results[j][1] + " whites";
+        return proposedCombinations[j].getCombination() + " --> " + results[j][0] + " blacks and " + results[j][1] + " whites";
     }
 
     private boolean finalResult(int i) {

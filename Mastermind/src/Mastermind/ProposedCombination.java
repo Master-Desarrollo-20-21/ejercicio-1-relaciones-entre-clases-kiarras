@@ -1,25 +1,24 @@
+import views.CombinationView;
 
+public class ProposedCombination extends Combination {
 
-public class ProposedCombination extends Combination{
+    private CombinationView view;
 
-    private MastermindView mastermindView;
-
-    public ProposedCombination(MastermindView mastermindView) {
-        this.mastermindView = mastermindView;
+    public ProposedCombination() {
+        this.view = new CombinationView();
         code = getValidCombination();
     }
 
     private String getValidCombination() {
-        String value = this.mastermindView.inProposedCombination("");
+        String value = this.view.inProposedCombination("");
         while (value.length() != 4) {
-            value = this.mastermindView.inWrongLength();
+            value = this.view.inWrongLength();
         } 
         while (!isColorsOK(value)) {
-            value = this.mastermindView.inWrongColors();
+            value = this.view.inWrongColors();
         }
         return value;
     }
-
 
     private boolean isColorsOK(String value) {
         for (char c : value.toCharArray()) {
@@ -33,7 +32,7 @@ public class ProposedCombination extends Combination{
 	}
 
     @Override
-    public String show() {
+    public String getCombination() {
         return code;
     }
 }

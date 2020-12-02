@@ -45,7 +45,7 @@ public class SecretCombination extends Combination {
 	}
     
     @Override
-    public String show() {
+    public String getCombination() {
         return "xxxx";
     }
     

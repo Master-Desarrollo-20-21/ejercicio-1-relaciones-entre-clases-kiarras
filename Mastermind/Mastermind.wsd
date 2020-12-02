@@ -1,21 +1,25 @@
 @startuml Mastermind
 class Mastermind{
-  + start()
+  - start()
   - isResumed()
+  + main(String[])
 }
 Mastermind *--> Game
+Mastermind ...> StartView
 class Game{
     ~ MAX_ATTEMPS : int
-    - WINS
-    - Result : int[][]
-    + proposedCombinations : ProposedCombination[]
+    ~ WINS : int
+    - results : int[][]
+    - proposedCombinations : ProposedCombination[]
+    - SecretCombination
     + play()
-    - showPreviousAttempts()
-    - finalResult() :String
+    - previousAttempts(int) : String[]
+    - getAttempt(int) : String
+    - finalResult(int) : boolean
 }
 Game *--> SecretCombination
 Game *--> "0..10" ProposedCombination
-
+Game ...> GameView
 abstract class Combination{
     ~ MAX_COLORS : int
     + Code : String
@@ -39,33 +43,38 @@ Combination <|-- ProposedCombination
 Class SecretCombination{
     - setRamdomCombination()
     - isContain(int, char[])
-    + isEquals(ProposedCombination)
+    + isEquals(String)
 }
 Class ProposedCombination{
+    - getValidCombination() : String
+    - isColorOK(String) : boolean
+    + getProposedCombination() : ProposedCombination
+}
+ProposedCombination ...> CombinationView
+Class Console{
+    + input()
+    + out()
+}
+View *--> Console
+View <|--- StartView
+View <|--- GameView
+View <|--- CombinationView
+
+Class StartView{
+    + isResumed()
+}
+Class GameView{
+    + showTitle()
+    + showAttempsNumber(int)
+    + showPreviousAttempts(String[])
+    + finalResult(boolean)
+}
+Class CombinationView{
     ~ PROPOSE
     ~ WRONG_LENGTH
     ~ WRONG_COLORS
-    - getValidCombination() : String
-    - inProposedCombination(String) : String
-    - isColorOK(String) : boolean
-    + getProposedCombination()
-    + getAttempt() : String
-}
-
-package IO{
-    Class Console{
-        + input()
-        + out()
-    }
-}
-MastermindView ...> Console
-Game ...> MastermindView
-Mastermind ...> MastermindView
-ProposedCombination ...> MastermindView
-Class MastermindView{
-    + showTitle()
-    + showPreviousAttempts()
-    + getProposedCombination()
-    + 
+    + inProposedCombination(String)
+    + inWrongLength()
+    + inWrongColors()
 }
 @enduml

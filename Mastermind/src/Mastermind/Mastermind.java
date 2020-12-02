@@ -1,23 +1,21 @@
-
+import views.StartView;
 
 public class Mastermind {
 
-    private MastermindView mastermindView;
     private Game game;
 
     public Mastermind(){
-        this.mastermindView = new MastermindView();
-        this.game = new Game(this.mastermindView);
+        this.game = new Game();
     }
 
-    public void start() {
+    private void start() {
         do {
             this.game.play();
         } while (isResumed());
     }
     
     private boolean isResumed() {
-        if(mastermindView.isResumed()){
+        if(new StartView().isResumed()){
             this.game = new Game();
             return true;
         }
