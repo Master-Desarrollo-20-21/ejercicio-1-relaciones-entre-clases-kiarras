@@ -4,12 +4,12 @@ class Game {
 
 	final int MAX_ATTEMPS = 10;
 	int attempsCounter = 0;
-	private Console console;
+	private View view;
 	Combination secretCombination;
 	Result[] results = new Result[MAX_ATTEMPS];
 
 	Game() {
-		this.console = new Console();
+		this.view = new View();
 	}
 	
 	public void start() {
@@ -17,7 +17,7 @@ class Game {
 		this.results = new Result[MAX_ATTEMPS];
 		this.secretCombination = new Combination();
 		this.secretCombination.setRandomValue();
-		this.console.out("\n---- MASTERMIND -----\n");
+		this.view.getTitle();
 	}
 	
 	public void play() {
@@ -27,7 +27,7 @@ class Game {
 			proposedCombination.readValue();
 			this.results[this.attempsCounter] = new Result(proposedCombination, this.secretCombination);
 			this.attempsCounter++;
-			this.console.out(this.toString());
+			this.view.getAttempts(this.toString());
 
 		} while (!this.isEndOfGame());
 	}
@@ -41,13 +41,9 @@ class Game {
 	}
 
 	public boolean resume() {
-		String answer;
-		do {
-			answer = this.console.in("RESUME? (y/n): ");
-		} while (!answer.equals("y") && !answer.equals("n"));
-		return answer.equals("y");
+		return this.view.isResume();
 	}
-	
+	//pasar esto a view necesita de muchos parametros
 	public String toString() {
 		String rs = "\n" + this.attempsCounter + " attempt(s):\n";
 		

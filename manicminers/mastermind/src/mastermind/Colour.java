@@ -1,9 +1,14 @@
 package mastermind;
 
 public enum Colour {
-	RED("r"), BLUE("b"), YELLOW("y"), GREEN("g"), ORANGE("o"), PINK("p");
+	RED("r"),
+	BLUE("b"),
+	YELLOW("y"),
+	GREEN("g"),
+	ORANGE("o"),
+	PINK("p");
 
-	private String colour;
+	private String value;
 
 	Colour(String colour) {
 		this.colour = colour;

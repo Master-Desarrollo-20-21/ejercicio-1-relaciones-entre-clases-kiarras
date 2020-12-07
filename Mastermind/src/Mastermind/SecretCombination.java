@@ -2,7 +2,7 @@
 
 import java.util.Random;
 
-public class SecretCombination extends Combination {
+public class SecretCombination extends inCombination {
     public SecretCombination(){
         code = setRandomCombination();
     }

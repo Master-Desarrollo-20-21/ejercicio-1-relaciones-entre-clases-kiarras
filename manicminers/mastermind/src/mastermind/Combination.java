@@ -44,14 +44,13 @@ class Combination {
 	public void readValue() {
 				
 		do {
-			String combination = this.console.in("Propose a combination: ");
-			this.setValue(combination);
+			this.setValue(this.view.inCombination());
 			
 			if(!this.isValidLength()) {
-				this.console.out("Wrong proposed combination length\n");
+				this.view.getErrorLength();
 			}
 			if(!this.isValidColors()) {
-				this.console.out("Wrong colors, they must be: " + this.getValidColours() + "\n");
+				this.view.getErrorColor(this.getValidColours());
 			}				
 		}
 		while(!this.isValid());

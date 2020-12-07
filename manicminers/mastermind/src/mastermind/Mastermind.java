@@ -7,7 +7,7 @@ class Mastermind {
 	public Mastermind() {
 		
 	}
-	
+	//en este play, Game lo hace todo
 	private void play() {
 		 do {
 			 this.game = new Game();
